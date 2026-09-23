@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Profissional por R$ 40,00 | Oferta Exclusiva 23 de Setembro</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            bg: '#0d0f12',
+                            card: '#161b22',
+                            purple: '#7b2cbf',
+                            cyan: '#00f5d4',
+                            magenta: '#f72585',
+                            darkBorder: '#232a35'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'shimmer': 'shimmer 2.5s infinite linear'
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 15px rgba(0, 245, 212, 0.4), 0 0 30px rgba(123, 44, 191, 0.3)' },
+                            '50%': { boxShadow: '0 0 25px rgba(247, 37, 133, 0.6), 0 0 45px rgba(0, 245, 212, 0.5)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-8px)' }
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Cyberpunk Custom Styling */
+        body {
+            background-color: #0d0f12;
+            color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Neon Glow Utility Classes */
+        .glow-text-cyan {
+            text-shadow: 0 0 10px rgba(0, 245, 212, 0.6), 0 0 20px rgba(0, 245, 212, 0.3);
+        }
+        .glow-text-magenta {
+            text-shadow: 0 0 10px rgba(247, 37, 133, 0.6), 0 0 20px rgba(247, 37, 133, 0.3);
+        }
+        .glow-border {
+            position: relative;
+        }
+        .glow-border::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(90deg, #7b2cbf, #00f5d4, #f72585);
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+        .glow-border:hover::before {
+            opacity: 1;
+        }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(22, 27, 34, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0f12;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #7b2cbf;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f5d4;
+        }
+
+        /* Background Grid */
+        .bg-grid-pattern {
+            background-image: radial-gradient(rgba(123, 44, 191, 0.15) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+    </style>
+</head>
+<body class="relative bg-cyber-bg text-gray-100 antialiased bg-grid-pattern">
+
+    <!-- Background Animated Canvas -->
+    <canvas id="bg-canvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0 opacity-40"></canvas>
+
+    <div class="relative z-10 flex flex-col min-h-screen">
+
+        <!-- TOP URGENCY HEADER BAR -->
+        <header class="sticky top-0 z-50 bg-[#0d0f12]/90 backdrop-blur-md border-b border-cyber-purple/40">
+            <div class="max-w-7xl mx-auto px-4 py-2.5 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+                <div class="flex items-center gap-2">
+                    <span class="inline-flex items-center justify-center w-2.5 h-2.5 rounded-full bg-cyber-cyan animate-ping"></span>
+                    <span class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-cyber-cyan">
+                        ⚡ OPORTUNIDADE ÚNICA — SOMENTE HOJE, 23 DE SETEMBRO
+                    </span>
+                </div>
+                
+                <!-- Live Countdown Clock -->
+                <div class="flex items-center gap-2 bg-cyber-card/80 px-3 py-1 rounded-full border border-cyber-purple/50">
+                    <span class="text-xs text-gray-400 font-semibold uppercase">OFERTA EXPIRA EM:</span>
+                    <div id="countdown" class="font-mono font-bold text-cyber-magenta text-sm sm:text-base tracking-widest glow-text-magenta">
+                        --:--:--
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- HERO SECTION -->
+        <section class="relative py-16 lg:py-24 px-4 max-w-6xl mx-auto text-center flex flex-col items-center justify-center">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyber-purple/20 border border-cyber-purple/50 mb-6 text-cyber-cyan text-xs sm:text-sm font-medium uppercase tracking-wider">
+                <i class="fa-solid fa-bolt text-cyber-cyan"></i> Criação Relâmpago Sem Burocracia
+            </div>
+
+            <!-- Headline -->
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight mb-6 max-w-4xl">
+                Seu Site Profissional No Ar Até Amanhã!<br class="hidden sm:inline">
+                <span class="bg-gradient-to-r from-cyber-cyan via-cyber-purple to-cyber-magenta bg-clip-text text-transparent">
+                    Sem Domínio. Sem Mensalidade.
+                </span><br>
+                Apenas <span class="text-cyber-cyan underline decoration-cyber-magenta decoration-4 underline-offset-8">R$ 40,00</span>
+            </h1>
+
+            <!-- Sub-headline -->
+            <p class="text-base sm:text-lg lg:text-xl text-gray-300 max-w-2xl mb-8 leading-relaxed">
+                Exclusivamente neste <strong class="text-white">23 de Setembro</strong>: Eu crio sua página única, pronta para vender ou divulgar seu trabalho, sem complicações e sem nenhum custo oculto.
+            </p>
+
+            <!-- CTA Button -->
+            <div class="flex flex-col items-center gap-3 w-full max-w-md">
+                <a href="#" data-a="NTUxMTk1OTM2MDkzNg==" data-m="T2ksIEtsZWJlciE=" onclick="window.open('https://wa.me/' + atob(this.dataset.a) + '?text=' + encodeURIComponent(atob(this.dataset.m)), '_blank'); return false;" class="w-full group relative inline-flex items-center justify-center px-8 py-4 text-lg font-extrabold uppercase text-gray-900 bg-cyber-cyan rounded-xl overflow-hidden transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 animate-pulse-glow">
+                    <span class="absolute inset-0 bg-gradient-to-r from-cyber-cyan via-white to-cyber-cyan opacity-0 group-hover:opacity-30 transition-opacity"></span>
+                    <i class="fa-brands fa-whatsapp text-2xl mr-3 text-gray-900"></i>
+                    <span>QUERO MEU SITE AGORA POR R$ 40</span>
+                </a>
+                <span class="text-xs text-gray-400 flex items-center gap-1.5">
+                    <i class="fa-solid fa-shield-halved text-cyber-cyan"></i> Pagamento único via pix • Sem fidelidade
+                </span>
+            </div>
+
+            <!-- Floating Hero Cards Preview Badge -->
+            <div class="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 w-full max-w-4xl text-left">
+                <div class="glass-card p-3 sm:p-4 rounded-xl border-l-4 border-l-cyber-cyan">
+                    <p class="text-xs text-gray-400 uppercase font-mono">Status da Entrega</p>
+                    <p class="text-sm font-bold text-white mt-1">Em menos de 24hrs</p>
+                </div>
+                <div class="glass-card p-3 sm:p-4 rounded-xl border-l-4 border-l-cyber-purple">
+                    <p class="text-xs text-gray-400 uppercase font-mono">Mensalidades</p>
+                    <p class="text-sm font-bold text-cyber-cyan mt-1">R$ 0,00 para sempre</p>
+                </div>
+                <div class="glass-card p-3 sm:p-4 rounded-xl border-l-4 border-l-cyber-magenta">
+                    <p class="text-xs text-gray-400 uppercase font-mono">Domínio Inicial</p>
+                    <p class="text-sm font-bold text-white mt-1">Link Próprio Grátis</p>
+                </div>
+                <div class="glass-card p-3 sm:p-4 rounded-xl border-l-4 border-l-green-400">
+                    <p class="text-xs text-gray-400 uppercase font-mono">Compatibilidade</p>
+                    <p class="text-sm font-bold text-white mt-1">Celular & Computador</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: POR QUE É INACREDITÁVEL -->
+        <section class="py-16 bg-cyber-card/40 border-y border-cyber-darkBorder relative">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-white">
+                        Por que essa oferta parece <span class="text-cyber-cyan">Inacreditável?</span>
+                    </h2>
+                    <p class="text-gray-400 text-sm sm:text-base mt-2 max-w-xl mx-auto">
+                        Eliminei todos os intermediários e a burocracia das agências tradicionais para entregar o que você precisa rápido.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Card 1 -->
+                    <div class="glass-card p-6 rounded-2xl hover:border-cyber-cyan/60 transition-all duration-300 transform hover:-translate-y-2 group">
+                        <div class="w-12 h-12 rounded-xl bg-cyber-purple/20 flex items-center justify-center text-cyber-cyan text-2xl mb-4 group-hover:scale-110 transition-transform">
+                            🚀
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Pronto em poucas horas</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            Receba o link do seu site finalizado no dia seguinte. Entrega ultra-rápida.
+                        </p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="glass-card p-6 rounded-2xl hover:border-cyber-purple/60 transition-all duration-300 transform hover:-translate-y-2 group">
+                        <div class="w-12 h-12 rounded-xl bg-cyber-magenta/20 flex items-center justify-center text-cyber-magenta text-2xl mb-4 group-hover:scale-110 transition-transform">
+                            🌐
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Sem Custo de Domínio</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            Seu site já entra no ar com um link próprio ativo instantaneamente.
+                        </p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="glass-card p-6 rounded-2xl hover:border-cyber-cyan/60 transition-all duration-300 transform hover:-translate-y-2 group">
+                        <div class="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center text-green-400 text-2xl mb-4 group-hover:scale-110 transition-transform">
+                            💰
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Taxa Única de R$ 40</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            Zero mensalidades, zero pegadinhas, zero taxas escondidas no final do mês. Você paga uma única vez.
+                        </p>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="glass-card p-6 rounded-2xl hover:border-cyber-magenta/60 transition-all duration-300 transform hover:-translate-y-2 group">
+                        <div class="w-12 h-12 rounded-xl bg-cyber-cyan/20 flex items-center justify-center text-cyber-cyan text-2xl mb-4 group-hover:scale-110 transition-transform">
+                            📱
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">100% Responsivo</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            Perfeição visual no celular, tablet e computador com botões diretos para o seu WhatsApp e Redes Sociais.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO COMPARATIVA DE PREÇOS -->
+        <section class="py-16 bg-cyber-card/30 border-y border-cyber-darkBorder">
+            <div class="max-w-5xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-white">
+                        Compare e veja a <span class="text-cyber-cyan">Economia Absurda</span>
+                    </h2>
+                    <p class="text-gray-400 text-sm sm:text-base mt-2">
+                        Por que pagar mil reais em agências ultrapassadas?
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+                    <!-- Agências Tradicionais -->
+                    <div class="glass-card p-6 sm:p-8 rounded-2xl border border-red-500/30 relative opacity-80">
+                        <span class="absolute top-4 right-4 bg-red-500/20 text-red-400 text-xs font-bold px-2.5 py-1 rounded-full uppercase">Comum</span>
+                        <h3 class="text-xl font-bold text-gray-300 mb-2">Agências Tradicionais</h3>
+                        <p class="text-3xl font-black text-red-400 mb-6">R$ 1.500<span class="text-sm font-normal text-gray-400"> + R$ 50/mês</span></p>
+
+                        <ul class="space-y-3 text-sm text-gray-300">
+                            <li class="flex items-center text-red-400">
+                                <i class="fa-solid fa-xmark mr-3 text-red-500"></i> Demora de 15 a 30 dias para entregar
+                            </li>
+                            <li class="flex items-center text-red-400">
+                                <i class="fa-solid fa-xmark mr-3 text-red-500"></i> Cobrança de mensalidade de hospedagem
+                            </li>
+                            <li class="flex items-center text-red-400">
+                                <i class="fa-solid fa-xmark mr-3 text-red-500"></i> Exige compra de domínio anual cara
+                            </li>
+                            <li class="flex items-center text-red-400">
+                                <i class="fa-solid fa-xmark mr-3 text-red-500"></i> Reuniões longas e burocráticas
+                            </li>
+                            <li class="flex items-center text-red-400">
+                                <i class="fa-solid fa-xmark mr-3 text-red-500"></i> Cobram extra para qualquer alteração simples
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Oferta de Hoje -->
+                    <div class="glass-card p-6 sm:p-8 rounded-2xl border-2 border-cyber-cyan relative shadow-[0_0_30px_rgba(0,245,212,0.15)] bg-cyber-card">
+                        <span class="absolute top-4 right-4 bg-cyber-cyan text-gray-900 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider">
+                            ⚡ SOMENTE HOJE
+                        </span>
+                        <h3 class="text-xl font-bold text-white mb-2">Oferta Relâmpago 23/Set</h3>
+                        <p class="text-4xl font-black text-cyber-cyan mb-6">R$ 40,00 <span class="text-xs font-normal text-gray-400">PAGO UMA ÚNICA VEZ</span></p>
+
+                        <ul class="space-y-3.5 text-sm text-gray-200 mb-8">
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-check-circle mr-3 text-cyber-cyan text-lg"></i> <strong>Pronto no mesmo dia (poucas horas)</strong>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-check-circle mr-3 text-cyber-cyan text-lg"></i> ZERO mensalidade para sempre
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-check-circle mr-3 text-cyber-cyan text-lg"></i> Link ativo grátis sem precisar comprar domínio
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-check-circle mr-3 text-cyber-cyan text-lg"></i> Atendimento direto pelo WhatsApp
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-check-circle mr-3 text-cyber-cyan text-lg"></i> Layout moderno, leve e adaptado para Celular
+                            </li>
+                        </ul>
+
+                        <a href="#" data-a="NTUxMTk1OTM2MDkzNg==" data-m="T2ksIEtsZWJlciE=" onclick="window.open('https://wa.me/' + atob(this.dataset.a) + '?text=' + encodeURIComponent(atob(this.dataset.m)), '_blank'); return false;" class="block w-full text-center py-3.5 px-6 rounded-xl bg-cyber-cyan text-gray-900 font-extrabold uppercase hover:bg-white transition-all shadow-lg">
+                            GARANTIR MEU SITE POR R$ 40
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROVA SOCIAL & ESCASSEZ DE VAGAS -->
+        <section class="py-16 px-4 max-w-4xl mx-auto text-center">
+            <div class="glass-card p-8 rounded-3xl border border-cyber-purple/50">
+                <div class="inline-block p-3 rounded-full bg-cyber-purple/20 text-cyber-cyan mb-4">
+                    <i class="fa-solid fa-fire text-2xl animate-bounce"></i>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white">
+                    Vagas Limitadas para Atendimento Hoje
+                </h2>
+                <p class="text-gray-400 text-sm mt-2 max-w-md mx-auto">
+                    Para garantir a entrega relâmpago de alta qualidade em poucas horas, atendo um número máximo de clientes por dia.
+                </p>
+
+                <!-- Progress Bar -->
+                <div class="mt-8 max-w-lg mx-auto">
+                    <div class="flex justify-between text-xs font-bold font-mono mb-2">
+                        <span class="text-cyber-cyan">VAGAS PREENCHIDAS: 3/4</span>
+                        <span class="text-cyber-magenta"> RESTA APENAS 1 VAGA</span>
+                    </div>
+                    <div class="w-full h-4 bg-cyber-bg rounded-full overflow-hidden p-0.5 border border-cyber-darkBorder">
+                        <div class="h-full bg-gradient-to-r from-cyber-purple via-cyber-cyan to-cyber-magenta rounded-full w-[80%] transition-all duration-1000 animate-pulse"></div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity Simulator Feed -->
+                <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left text-xs">
+                    <div class="bg-cyber-bg/60 p-3 rounded-lg border border-cyber-darkBorder flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-cyber-cyan/20 flex items-center justify-center text-cyber-cyan font-bold">
+                            M
+                        </div>
+                        <div>
+                            <p class="font-bold text-white">Matheus S. (SP)</p>
+                            <p class="text-gray-400">Garantiu o site há 18 min</p>
+                        </div>
+                    </div>
+                    <div class="bg-cyber-bg/60 p-3 rounded-lg border border-cyber-darkBorder flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-cyber-magenta/20 flex items-center justify-center text-cyber-magenta font-bold">
+                            R
+                        </div>
+                        <div>
+                            <p class="font-bold text-white">Renata G. (RJ)</p>
+                            <p class="text-gray-400">Garantiu o site há 42 min</p>
+                        </div>
+                    </div>
+                    <div class="bg-cyber-bg/60 p-3 rounded-lg border border-cyber-darkBorder flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-cyber-purple/20 flex items-center justify-center text-cyber-purple font-bold">
+                            C
+                        </div>
+                        <div>
+                            <p class="font-bold text-white">Carlos A. (MG)</p>
+                            <p class="text-gray-400">Garantiu o site há 1h</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ INTERATIVO -->
+        <section class="py-16 px-4 max-w-4xl mx-auto">
+            <div class="text-center mb-10">
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-white">
+                    Perguntas Frequentes
+                </h2>
+                <p class="text-gray-400 text-sm mt-2">Tire suas dúvidas antes de chamar no WhatsApp</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="glass-card rounded-xl border border-cyber-darkBorder overflow-hidden">
+                    <button onclick="toggleFaq(1)" class="w-full px-6 py-4 text-left flex justify-between items-center text-white font-bold hover:text-cyber-cyan transition-colors">
+                        <span>1. Como funciona o site sem mensalidade?</span>
+                        <i id="faq-icon-1" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-ans-1" class="hidden px-6 pb-4 text-sm text-gray-300 border-t border-cyber-darkBorder/50 pt-3">
+                        Seu site é hospedado em infraestruturas modernas de alta performance (como Vercel ou GitHub Pages) que possuem planos gratuitos permanentes para sites institucionais e landing pages. Isso significa que você nunca pagará mensalidades.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="glass-card rounded-xl border border-cyber-darkBorder overflow-hidden">
+                    <button onclick="toggleFaq(2)" class="w-full px-6 py-4 text-left flex justify-between items-center text-white font-bold hover:text-cyber-cyan transition-colors">
+                        <span>2. O que preciso enviar para você criar o site?</span>
+                        <i id="faq-icon-2" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-ans-2" class="hidden px-6 pb-4 text-sm text-gray-300 border-t border-cyber-darkBorder/50 pt-3">
+                        Apenas fotos do seu produto/serviço, seu logotipo (se tiver), um texto simples do seu negócio e o número do seu WhatsApp/Redes sociais. Eu organizo tudo no visual mais atraente!
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="glass-card rounded-xl border border-cyber-darkBorder overflow-hidden">
+                    <button onclick="toggleFaq(3)" class="w-full px-6 py-4 text-left flex justify-between items-center text-white font-bold hover:text-cyber-cyan transition-colors">
+                        <span>3. Posso colocar meu próprio domínio (.com.br) depois?</span>
+                        <i id="faq-icon-3" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-ans-3" class="hidden px-6 pb-4 text-sm text-gray-300 border-t border-cyber-darkBorder/50 pt-3">
+                        Com certeza! Seu site já sai funcionando com um link gratuito. Se no futuro você quiser comprar um domínio personalizado como `seunegocio.com.br`, nós podemos conectar facilmente.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="glass-card rounded-xl border border-cyber-darkBorder overflow-hidden">
+                    <button onclick="toggleFaq(4)" class="w-full px-6 py-4 text-left flex justify-between items-center text-white font-bold hover:text-cyber-cyan transition-colors">
+                        <span>4. Como faço o pagamento dos R$ 40?</span>
+                        <i id="faq-icon-4" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-ans-4" class="hidden px-6 pb-4 text-sm text-gray-300 border-t border-cyber-darkBorder/50 pt-3">
+                        O pagamento é via PIX direto, rápido e transparente. Sem surpresas ou taxas adicionais.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO INSTRUÇÃO PARA SEPARAR PARA GITHUB -->
+        <section class="py-8 px-4 max-w-4xl mx-auto w-full">
+            <div class="bg-cyber-card/90 border border-cyber-purple/40 rounded-2xl p-6 text-left">
+                <button onclick="toggleGithubGuide()" class="flex items-center justify-between w-full text-cyber-cyan font-bold font-mono text-sm">
+                    <span><i class="fa-brands fa-github text-lg mr-2"></i> ⚙️ Guia do Desenvolvedor: Como publicar no GitHub Pages</span>
+                    <span id="github-guide-toggle-btn">[ + Expandir ]</span>
+                </button>
+                <div id="github-guide-content" class="hidden mt-4 pt-4 border-t border-cyber-darkBorder text-xs text-gray-300 space-y-3 font-mono">
+                    <p class="text-gray-400">Para subir no seu repositório do GitHub e deixar rodando perfeitamente:</p>
+                    <ol class="list-decimal list-inside space-y-2 text-gray-300">
+                        <li>Crie o arquivo <code class="text-cyber-cyan font-bold">index.html</code> e cole a estrutura principal do código HTML.</li>
+                        <li>Crie a pasta <code class="text-cyber-cyan font-bold">css/</code> e coloque o arquivo <code class="text-cyber-cyan font-bold">css/style.css</code> (contendo as estilizações personalizadas das tags style).</li>
+                        <li>Crie a pasta <code class="text-cyber-cyan font-bold">js/</code> e coloque o arquivo <code class="text-cyber-cyan font-bold">js/script.js</code> (contendo os scripts do canvas, timer e FAQ).</li>
+                        <li>Suba no repositório no GitHub e ative o <strong>GitHub Pages</strong> nas configurações (Settings > Pages > Branch main).</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER FINAL CTA -->
+        <footer class="mt-auto py-12 border-t border-cyber-darkBorder bg-cyber-bg/90 text-center px-4">
+            <div class="max-w-4xl mx-auto flex flex-col items-center gap-6">
+                <h3 class="text-2xl sm:text-3xl font-extrabold text-white">
+                    Pronto para ter seu site no ar hoje por apenas <span class="text-cyber-cyan">R$ 40</span>?
+                </h3>
+                <a href="#" data-a="NTUxMTk1OTM2MDkzNg==" data-m="T2ksIEtsZWJlciE=" onclick="window.open('https://wa.me/' + atob(this.dataset.a) + '?text=' + encodeURIComponent(atob(this.dataset.m)), '_blank'); return false;" class="px-8 py-4 bg-cyber-cyan text-gray-900 font-extrabold rounded-xl uppercase text-lg hover:scale-105 transition-transform animate-pulse-glow">
+                    FALAR COMIGO NO WHATSAPP AGORA
+                </a>
+                <p class="text-xs text-gray-500 mt-4">
+                    © 2026 Promoção Válida para 23 de Setembro. Todos os direitos reservados.
+                </p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // -------------------------------------------------------------
+        // 1. CANVAS BACKGROUND ANIMATION (Cyberpunk Grid & Particles)
+        // -------------------------------------------------------------
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const particles = [];
+        const particleCount = 40;
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2 + 1,
+                color: Math.random() > 0.5 ? '#00f5d4' : '#f72585',
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5
+            });
+        }
+
+        function drawCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Render subtle floating particles
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = p.color;
+                ctx.fill();
+
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+            });
+
+            requestAnimationFrame(drawCanvas);
+        }
+        drawCanvas();
+
+        // -------------------------------------------------------------
+        // 2. REAL-TIME COUNTDOWN TIMER (Midnight Expiry)
+        // -------------------------------------------------------------
+        function updateTimer() {
+            const now = new Date();
+            const endOfDay = new Date();
+            endOfDay.setHours(23, 59, 59, 999);
+
+            const diff = endOfDay - now;
+
+            if (diff <= 0) {
+                document.getElementById('countdown').innerText = "EXPIRADO!";
+                return;
+            }
+
+            const hours = Math.floor(diff / (1000 * 60 * 60)).toString().padStart(2, '0');
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+
+            document.getElementById('countdown').innerText = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // -------------------------------------------------------------
+        // 3. FAQ ACCORDION TOGGLE
+        // -------------------------------------------------------------
+        function toggleFaq(index) {
+            const ans = document.getElementById(`faq-ans-${index}`);
+            const icon = document.getElementById(`faq-icon-${index}`);
+
+            if (ans.classList.contains('hidden')) {
+                ans.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                ans.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // -------------------------------------------------------------
+        // 4. GITHUB DEPLOYMENT GUIDE COLLAPSIBLE
+        // -------------------------------------------------------------
+        function toggleGithubGuide() {
+            const content = document.getElementById('github-guide-content');
+            const btn = document.getElementById('github-guide-toggle-btn');
+
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                btn.innerText = '[ - Recolher ]';
+            } else {
+                content.classList.add('hidden');
+                btn.innerText = '[ + Expandir ]';
+            }
+        }
+    </script>
+</body>
+</html>
